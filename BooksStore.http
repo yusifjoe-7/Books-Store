@@ -1,6 +1,10 @@
 @BooksStore_HostAddress = http://localhost:5053
 
-GET {{BooksStore_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{BooksStore_HostAddress}}/writers
+Content-Type: application/json
+
+{
+  "Name": "Layla Mansour"
+}
 
 ###

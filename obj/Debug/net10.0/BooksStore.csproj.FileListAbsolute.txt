@@ -120,3 +120,4 @@
 /home/joe/Data/dotnet/BooksStore/bin/Debug/net10.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 /home/joe/Data/dotnet/BooksStore/bin/Debug/net10.0/Npgsql.dll
 /home/joe/Data/dotnet/BooksStore/bin/Debug/net10.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/home/joe/Data/dotnet/BooksStore/obj/Debug/net10.0/BooksStore.sourcelink.json
