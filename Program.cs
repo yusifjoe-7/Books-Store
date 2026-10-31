@@ -1,7 +1,7 @@
 using BooksStore.Data;
 using BooksStore.Services;
 using Microsoft.EntityFrameworkCore;
-
+using BooksStore.Errors;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,8 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<GetBooksService>();
+
 builder.Configuration.AddEnvironmentVariables();
 
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 
 var app = builder.Build();

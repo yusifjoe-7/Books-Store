@@ -1,4 +1,5 @@
 using BooksStore.Data;
+using BooksStore.Errors.Exceptions;
 using BooksStore.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,12 +17,15 @@ public class GetBooksService
     public async Task<Book[]> GetBooks(int skip, int take)
     
     {
-        var users = await _DB.Books
+        var Books = await _DB.Books
                             .Skip(skip)
                             .Take(take)
                             .ToArrayAsync();
 
-        return users;
+        if (Books.Length == 0)
+            throw new TooManySkipsException(skip); 
+
+        return Books;
         
     }
 }

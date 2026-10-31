@@ -12,6 +12,8 @@ public class BooksController : ControllerBase
     [HttpGet]
     public async Task<ActionResult> GetBooks( GetBooksService BookService, [FromQuery] int skip = 0, [FromQuery] int take = 20)
     {
+        take = Math.Clamp(take, 0, 100);
+        skip = Math.Max(1, skip);
         var data = await BookService.GetBooks(skip, take);
         
         return Ok(
