@@ -1,7 +1,7 @@
 using BooksStore.Data;
 using BooksStore.Services;
 using Microsoft.EntityFrameworkCore;
-using BooksStore.Errors;
+using BooksStore.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 

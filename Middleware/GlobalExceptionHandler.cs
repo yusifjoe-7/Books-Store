@@ -4,7 +4,7 @@ using BooksStore.Errors.Handlers;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BooksStore.Errors;
+namespace BooksStore.Middleware;
 
 public class GlobalExceptionHandler : IExceptionHandler
 {
