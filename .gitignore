@@ -1,4 +1,4 @@
 
 
 *.env
-*.Development.json
+BooksStore.API/appsettings.Development.json
