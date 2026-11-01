@@ -11,9 +11,10 @@ namespace BooksStore.Controllers;
 public class WritersController : ControllerBase
 {
     [HttpGet]
-    public IActionResult Get()
+    public async Task<IActionResult> Get(AppDbContext context)
     {
-        return Ok();
+        var data = await context.Writers.ToArrayAsync();
+        return Ok(data);
     }
 
     [HttpPost]
