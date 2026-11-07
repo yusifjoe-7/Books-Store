@@ -33,6 +33,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<GetBooksService>();
 builder.Services.AddScoped<AddWriterService>();
 
+builder.Services.AddAutoMapper(cfg => { }, typeof(Program));
+
 var app = builder.Build();
 
 app.UseExceptionHandler();

@@ -1,4 +1,4 @@
-using BooksStore.Services;
+using BooksStore.Services.Inerfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BooksStore.Controllers;
@@ -10,7 +10,7 @@ public class BooksController : ControllerBase
     
 
     [HttpGet]
-    public async Task<ActionResult> GetBooks( GetBooksService BookService, [FromQuery] int skip = 0, [FromQuery] int take = 20)
+    public async Task<ActionResult> GetBooks( IGetBooksService BookService, [FromQuery] int skip = 0, [FromQuery] int take = 20)
     {
         take = Math.Clamp(take, 0, 100);
         skip = Math.Max(1, skip);

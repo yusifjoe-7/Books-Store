@@ -1,6 +1,6 @@
 using BooksStore.Data;
 using BooksStore.Models.DOTs;
-using BooksStore.Services;
+using BooksStore.Services.Inerfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +18,7 @@ public class WritersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddNew([FromBody] AddWriterRequest Writer, AddWriterService service)
+    public async Task<IActionResult> AddNew([FromBody] AddWriterRequest Writer, IAddWriterService service)
     {
         await service.Add(Writer);
 

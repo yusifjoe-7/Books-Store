@@ -249,3 +249,8 @@
 /home/joe/BooksStore/BooksStore.API/bin/Debug/net10.0/DotNetEnv.dll
 /home/joe/BooksStore/BooksStore.API/bin/Debug/net10.0/Superpower.dll
 /home/joe/BooksStore/BooksStore.API/bin/Debug/net10.0/.env
+/home/joe/BooksStore/BooksStore.API/bin/Debug/net10.0/AutoMapper.dll
+/home/joe/BooksStore/BooksStore.API/bin/Debug/net10.0/Microsoft.IdentityModel.Abstractions.dll
+/home/joe/BooksStore/BooksStore.API/bin/Debug/net10.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/joe/BooksStore/BooksStore.API/bin/Debug/net10.0/Microsoft.IdentityModel.Logging.dll
+/home/joe/BooksStore/BooksStore.API/bin/Debug/net10.0/Microsoft.IdentityModel.Tokens.dll

@@ -1,26 +1,24 @@
 using BooksStore.Data;
-using BooksStore.Errors.Exceptions;
 using BooksStore.Models.Entities;
 using BooksStore.Models.DOTs;
-using Microsoft.EntityFrameworkCore;
-using BooksStore.Controllers;
+using BooksStore.Services.Inerfaces;
+using AutoMapper;
+
 
 namespace BooksStore.Services;
-public class AddWriterService
+public class AddWriterService : IAddWriterService
 {
     private readonly AppDbContext _context;
-    private readonly ILogger<AddWriterService> _logger;
+    private readonly IMapper _mapper;
 
-    public AddWriterService(AppDbContext context, ILogger<AddWriterService> logger)
+    public AddWriterService(AppDbContext context)
     {
         _context = context;
-        _logger = logger;
     }
 
     public async Task Add(AddWriterRequest request)
     {
-        _logger.LogInformation("Request Name = {Name}", request.Name);
-        var writer = new Writer { Id = Guid.NewGuid(), Name = request.Name };
+        var writer = _mapper.Map<Writer>(request);
         _context.Writers.Add(writer);
         await _context.SaveChangesAsync();
     }
