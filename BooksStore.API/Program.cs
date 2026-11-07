@@ -5,6 +5,7 @@ using BooksStore.Middleware;
 using Scalar.AspNetCore;
 using DotNetEnv;
 using static DotNetEnv.Env;
+using BooksStore.Services.Inerfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,8 +31,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     )
 );
-builder.Services.AddScoped<GetBooksService>();
-builder.Services.AddScoped<AddWriterService>();
+builder.Services.AddScoped<IGetBooksService, GetBooksService>();
+builder.Services.AddScoped<IAddWriterService, AddWriterService>();
 
 builder.Services.AddAutoMapper(cfg => { }, typeof(Program));
 

@@ -27,4 +27,16 @@ public class GetBooksService : IGetBooksService
         return Books;
 
     }
+
+    public async Task<Book> GetABook(Guid Id)
+    {
+        var book = await _DB.Books
+                                .SingleOrDefaultAsync(b => b.Id == Id);
+
+        if (book == null)
+        {
+            throw new BookNotFoundException(Id);
+        }
+        return book;
+    }
 }

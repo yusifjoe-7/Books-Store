@@ -20,5 +20,7 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
 
         builder.HasMany(b => b.tags)
             .WithMany(t => t.books);
+        builder.Property(b => b.Price)
+            .HasColumnType("numeric(5,2)");
     }
 }
