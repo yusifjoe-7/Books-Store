@@ -1,10 +1,10 @@
-using BooksStore.Models.Entities;
+using BooksStore.Models.DOTs;
 
 namespace BooksStore.Services.Inerfaces;
 
 public interface IGetBooksService
 {
-    public Task<Book[]> GetBooks(int skip, int take);
-    public Task<Book> GetABook(Guid Id);
+    public Task<BookResponse[]> GetBooks(int skip, int take);
+    public Task<BookResponse> GetABook(Guid Id);
 
 }

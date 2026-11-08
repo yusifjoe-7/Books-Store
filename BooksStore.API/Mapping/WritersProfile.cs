@@ -8,11 +8,8 @@ public class WritersProfile : Profile
 {
     public WritersProfile()
     {
-        CreateMap<AddWriterRequest, Writer>()
-            .ForMember(
-                dest => dest.Id,
-                _=> Guid.NewGuid()
-            );
-        
+       CreateMap<AddWriterRequest, Writer>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(_ => Guid.NewGuid()));
+        CreateMap<Writer, WriterBookResponse>();
     }
 }

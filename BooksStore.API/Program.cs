@@ -4,8 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using BooksStore.Middleware;
 using Scalar.AspNetCore;
 using DotNetEnv;
-using static DotNetEnv.Env;
 using BooksStore.Services.Inerfaces;
+using static System.Text.Json.Serialization.ReferenceHandler;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,19 +21,21 @@ if (File.Exists(envFile))
 
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(o =>
+        o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddOpenApi();
 
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>((options) =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")
-    )
+    ).LogTo(Console.WriteLine, LogLevel.Information)
 );
 builder.Services.AddScoped<IGetBooksService, GetBooksService>();
-builder.Services.AddScoped<IAddWriterService, AddWriterService>();
+builder.Services.AddScoped<IAddService, AddService>();
 
 builder.Services.AddAutoMapper(cfg => { }, typeof(Program));
 

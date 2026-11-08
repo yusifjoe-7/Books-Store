@@ -1,12 +1,15 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace BooksStore.Migrations
 {
     /// <inheritdoc />
-    public partial class BooksTables : Migration
+    public partial class AddAddingBooks : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +18,9 @@ namespace BooksStore.Migrations
                 name: "Tags",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,6 +45,8 @@ namespace BooksStore.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric(5,2)", nullable: false),
                     WriterId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -58,7 +65,7 @@ namespace BooksStore.Migrations
                 columns: table => new
                 {
                     booksId = table.Column<Guid>(type: "uuid", nullable: false),
-                    tagsId = table.Column<Guid>(type: "uuid", nullable: false)
+                    tagsId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,6 +82,20 @@ namespace BooksStore.Migrations
                         principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tags",
+                columns: new[] { "Id", "title" },
+                values: new object[,]
+                {
+                    { 1, "Fantasy" },
+                    { 2, "Sci-Fi" },
+                    { 3, "Mystery & Thriller" },
+                    { 4, "Romance" },
+                    { 5, "Horror" },
+                    { 6, "Historical Fiction" },
+                    { 7, "YA" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -4,6 +4,13 @@
 
 - [x] Add an AutoMapper
 - [x] Add price and description for the books
-- [ ] Add get book by Id
+- [x] Add get book by Id
+
+
+
+
+### design the services
+
+
 
 _and about the auth_

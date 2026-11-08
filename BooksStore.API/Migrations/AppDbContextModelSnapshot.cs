@@ -27,8 +27,8 @@ namespace BooksStore.Migrations
                     b.Property<Guid>("booksId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("tagsId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("tagsId")
+                        .HasColumnType("integer");
 
                     b.HasKey("booksId", "tagsId");
 
@@ -67,16 +67,56 @@ namespace BooksStore.Migrations
 
             modelBuilder.Entity("BooksStore.Models.Entities.Tag", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("type")
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            title = "Fantasy"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            title = "Sci-Fi"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            title = "Mystery & Thriller"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            title = "Romance"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            title = "Horror"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            title = "Historical Fiction"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            title = "YA"
+                        });
                 });
 
             modelBuilder.Entity("BooksStore.Models.Entities.Writer", b =>

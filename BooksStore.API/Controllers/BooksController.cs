@@ -1,3 +1,4 @@
+using BooksStore.Models.DOTs;
 using BooksStore.Services.Inerfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,5 +28,14 @@ public class BooksController : ControllerBase
         var book = await service.GetABook(Id);
 
         return Ok(book);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> BookAdding(IAddService service, [FromBody] AddBookRequest request)
+    {
+        return Ok(
+        await service.AddBook(request)
+        );
+        
     }
 }

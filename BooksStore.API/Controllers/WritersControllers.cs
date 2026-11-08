@@ -18,10 +18,10 @@ public class WritersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddNew([FromBody] AddWriterRequest Writer, IAddWriterService service)
+    public async Task<IActionResult> AddNew([FromBody] AddWriterRequest Writer, IAddService service)
     {
-        await service.Add(Writer);
-
-        return Ok();
+        return Ok(
+            await service.AddWriter(Writer)
+        );
     }
 }

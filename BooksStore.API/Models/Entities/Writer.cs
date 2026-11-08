@@ -4,6 +4,6 @@ public class Writer
 {
     public Guid Id { get; set; }
     public required string Name { get; set; }
-    public List<Book> books { get; set; }
+    public ICollection<Book> books { get; set; } = new List<Book>();
 
 }
