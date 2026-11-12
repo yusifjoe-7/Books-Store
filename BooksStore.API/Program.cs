@@ -7,6 +7,9 @@ using DotNetEnv;
 using BooksStore.Services.Inerfaces;
 using static System.Text.Json.Serialization.ReferenceHandler;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,7 +53,37 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
+var jwtKey = builder.Configuration["Jwt:Key"]!;
+
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme =
+            JwtBearerDefaults.AuthenticationScheme;
+
+        options.DefaultChallengeScheme =
+            JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+
+            ValidateLifetime = true,
+
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtKey)
+            )
+        };
+    });
+
+builder.Services.AddAuthorization();
 app.MapControllers();
 
 app.Run();
