@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using BooksStore.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,19 +41,12 @@ builder.Services.AddDbContext<AppDbContext>((options) =>
 builder.Services.AddScoped<IGetBooksService, GetBooksService>();
 builder.Services.AddScoped<IAddService, AddService>();
 
-builder.Services.AddAutoMapper(cfg => { }, typeof(Program));
+builder.Services.AddScoped<IRefreshService, RefreshService>();
+builder.Services.AddScoped<IUpdateRefreshTokenService, UpdateRefreshTokenService>();
+builder.Services.AddScoped<ICreateAcountService, CreateAcountService>();
+builder.Services.AddScoped<AuthHelpers>();
+builder.Services.AddScoped<TokenService>();
 
-var app = builder.Build();
-
-app.UseExceptionHandler();
-
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-    app.MapScalarApiReference();
-}
-
-app.UseHttpsRedirection();
 var jwtKey = builder.Configuration["Jwt:Key"]!;
 
 builder.Services
@@ -84,6 +78,24 @@ builder.Services
     });
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddAutoMapper(cfg => { }, typeof(Program));
+
+var app = builder.Build();
+
+app.UseExceptionHandler();
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

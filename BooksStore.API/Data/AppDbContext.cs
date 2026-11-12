@@ -10,7 +10,9 @@ public class AppDbContext : DbContext
     }
     public DbSet<Book> Books { get; set; }
     public DbSet<Writer> Writers { get; set; }
-     public DbSet<Tag> Tags { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
      {

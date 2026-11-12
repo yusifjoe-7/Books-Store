@@ -65,6 +65,38 @@ namespace BooksStore.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("BooksStore.Models.Entities.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("RevokedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("TokenHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TokenHash")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("BooksStore.Models.Entities.Tag", b =>
                 {
                     b.Property<int>("Id")
@@ -119,6 +151,32 @@ namespace BooksStore.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BooksStore.Models.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("HashedPassword")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Roule")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("BooksStore.Models.Entities.Writer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -159,6 +217,22 @@ namespace BooksStore.Migrations
                         .IsRequired();
 
                     b.Navigation("writer");
+                });
+
+            modelBuilder.Entity("BooksStore.Models.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("BooksStore.Models.Entities.User", "User")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BooksStore.Models.Entities.User", b =>
+                {
+                    b.Navigation("RefreshTokens");
                 });
 
             modelBuilder.Entity("BooksStore.Models.Entities.Writer", b =>
