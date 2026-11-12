@@ -14,10 +14,9 @@ _about the auth_
 - [x] Add User  **Table**
 - [x] Create JWT Token
 - [x] Configure JWT Authentication
-- [ ] Add Resfrish Tokens
-- [ ] Add Auth Endpoints
+- [x] Add Resfresh Tokens
+- [x] Add Auth Endpoints
 - [ ] Authorization
-- [ ] Refresh Tokens
 
 _about Testing_
 
